@@ -43,6 +43,11 @@ class TodoList extends Component
         // TODO :: add a try catch block
         // if the todo is not found due to being already
         // deleted, then catch the exception and display
+        // also, look at any other failures that might occur
+        // and handle them gracefully
+        // - https://realrashid.github.io/sweet-alert/
+        // might be a good idea to use sweet alert for this
+        // plus logging to stdout for container logs
         $todo = Todo::find($id);
         $todo->completed = !$todo->completed;
         $todo->save();
@@ -54,10 +59,12 @@ class TodoList extends Component
     }
 
     public function delete($id) {
-        // TODO :: add a try catch block
-        // if the todo is not found due to being already
-        // deleted, then catch the exception and display
-        Todo::find($id)->delete();
+        try {
+            Todo::findOrfail($id)->delete();
+        } catch (\Exception $e) {
+            session()->flash('error', 'Todo not found.');
+            return;
+        }
     }
 
     public function cancel() {
