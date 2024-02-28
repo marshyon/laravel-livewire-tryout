@@ -13,17 +13,24 @@
                     wire:model="todo.completed">
             @endif
 
-            <!-- <input type="text" placeholder="Todo.."
-                                class="bg-gray-100  text-gray-900 text-sm rounded block w-full p-2.5"
-                                value="Todo Name">
+            @if ($editID === $todo->id)
+                <div>
+                    <input wire:model='editedName' type="text" placeholder="Todo.."
+                        class="bg-gray-100  text-gray-900 text-sm rounded block w-full p-2.5"">
+                    @error('editedName')
+                        <span class="block text-xs text-red-500">{{ $message }}</span>
+                    @enderror
+                </div>
+            @else
+                <h3 class="text-lg text-gray-800 text-semibold">{{ $todo->name }}</h3>
+            @endif
 
-                                <span class="block text-xs text-red-500">error</span> -->
-            <h3 class="text-lg text-gray-800 text-semibold">{{ $todo->name }}</h3>
         </div>
 
 
         <div class="flex items-center space-x-2">
-            <button class="text-sm font-semibold text-teal-500 rounded hover:text-teal-800">
+            <button wire:click="edit({{ $todo->id }})"
+                class="text-sm font-semibold text-teal-500 rounded hover:text-teal-800">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-4 h-4">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -42,11 +49,12 @@
     </div>
     <span class="text-xs text-gray-500"> {{ $todo->created_at }} </span>
     <div class="mt-3 text-xs text-gray-700">
-        <!--
-                            <button
-                                class="px-4 py-2 mt-3 font-semibold text-white bg-teal-500 rounded hover:bg-teal-600">Update</button>
-                            <button
-                                class="px-4 py-2 mt-3 font-semibold text-white bg-red-500 rounded hover:bg-red-600">Cancel</button> -->
+        @if ($editID === $todo->id)
+            <button wire:click="update()"
+                class="px-4 py-2 mt-3 font-semibold text-white bg-teal-500 rounded hover:bg-teal-600">Update</button>
+            <button wire:click="cancel"
+                class="px-4 py-2 mt-3 font-semibold text-white bg-red-500 rounded hover:bg-red-600">Cancel</button>
+        @endif
 
     </div>
 </div>

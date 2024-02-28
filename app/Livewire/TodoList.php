@@ -14,6 +14,8 @@ class TodoList extends Component
     #Rules('required|min:6|max:255')
     public $name;
     public $search;
+    public $editID;
+    public $editedName;
 
 
 
@@ -46,11 +48,33 @@ class TodoList extends Component
         $todo->save();
     }
 
+    public function edit($id) {
+        $this->editID = $id;
+        $this->editedName = Todo::find($id)->name;
+    }
+
     public function delete($id) {
         // TODO :: add a try catch block
         // if the todo is not found due to being already
         // deleted, then catch the exception and display
         Todo::find($id)->delete();
+    }
+
+    public function cancel() {
+        $this->editID = null;
+        $this->editedName = null;
+    }
+
+    public function update() {
+        $validated = $this->validate([
+            'editedName' => 'required|min:5|max:255'
+        ]);
+        $todo = Todo::find($this->editID);
+        $todo->name = $validated['editedName'];
+        // dd($todo->name);
+        $todo->save();
+        $this->editID = null;
+        $this->editedName = null;
     }
 
     public function render()
