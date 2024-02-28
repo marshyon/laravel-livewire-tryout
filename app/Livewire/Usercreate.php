@@ -6,6 +6,7 @@ use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
+use Livewire\WithoutUrlPagination;
 
 class Usercreate extends Component
 {
@@ -18,7 +19,7 @@ class Usercreate extends Component
     //   https://livewire.laravel.com/docs/installation#publishing-the-configuration-file
     //  but the vendor.pagination.tailwind is the path to the pagination
     // file so reading round this would be good
-    use WithPagination, WithFileUploads;
+    use WithPagination, WithoutUrlPagination, WithFileUploads;
 
 
     // never put anything public that you don't want to be exposed to the front end
