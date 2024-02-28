@@ -37,14 +37,21 @@ class Usercreate extends Component
             'password' => 'required|min:6|max:50'
         ]);
 
-        // dump($this->name);
-        // dump($this->email);
-        // dump($this->password);
         User::create([
             'name' => $this->name,
             'email' => $this->email,
             'password' => $this->password
         ]);
+
+        // reset the form
+        $this->name = '';
+        $this->email = '';
+        $this->password = '';
+
+
+        // flash a message to the session
+        session()->flash('success', 'User Created Successfully.');
+
     }
 
     public function createRandomUser() {
@@ -74,6 +81,8 @@ class Usercreate extends Component
             'title' => $title,
             'users' => $users
         ]);
+
+
     }
 
 }

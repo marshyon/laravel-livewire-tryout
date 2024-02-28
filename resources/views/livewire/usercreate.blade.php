@@ -1,23 +1,32 @@
 <div>
+
+
+@if(session('success'))
+    <span class="text-gray-600 bg-green-400 rounded w-100">{{ session('success') }}</span>
+@endif
+
 <form wire:submit="createUser">
-    <input class="block rounded border bg-gray-300 text-gray-700 border-gray-100 px-3 py-1 mb-1" type="text" wire:model="name" placeholder="username">
+    <input class="block px-3 py-1 mb-1 text-gray-700 bg-gray-300 border border-gray-100 rounded" type="text" wire:model="name" placeholder="username">
     @error('name')
-        <span class="text-red-500 text-xs">{{ $message }}</span>
+        <span class="text-xs text-red-500">{{ $message }}</span>
     @enderror
 
-    <input class="block rounded border bg-gray-300 text-gray-700 border-gray-100 px-3 py-1 mb-3" type="text" wire:model="email" placeholder="email">
+    <input class="block px-3 py-1 mb-1 text-gray-700 bg-gray-300 border border-gray-100 rounded" type="text" wire:model="email" placeholder="email">
     @error('email')
-        <span class="text-red-500 text-xs">{{ $message }}</span>
+        <span class="text-xs text-red-500">{{ $message }}</span>
     @enderror
 
-    <input class="block rounded border bg-gray-300 text-gray-700 border-gray-100 px-3 py-1 mb-3" type="password" wire:model="password" placeholder="password">
+    <input class="block px-3 py-1 mb-1 text-gray-700 bg-gray-300 border border-gray-100 rounded" type="password" wire:model="password" placeholder="password">
     @error('password')
-        <span class="text-red-500 text-xs">{{ $message }}</span>
+        <span class="text-xs text-red-500">{{ $message }}</span>
     @enderror
 
-    <button class="block rounded px-3 py-1 text-gray-200 bg-pink-800 text-white"  type="submit">Submit</button>
+    <button class="block px-3 py-1 text-white text-gray-200 bg-pink-800 rounded"  type="submit">Submit</button>
 
-    @foreach($users as $user)
+        <p class="text-gray-200">users {{ count($users) }}</p>
+
+
+    {{-- @foreach($users as $user)
         <p class="text-gray-200">user => {{ $user->name }}</p>
-    @endforeach
+    @endforeach --}}
 </div>
