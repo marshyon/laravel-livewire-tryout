@@ -4,9 +4,22 @@ namespace App\Livewire;
 use App\Models\User;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Usercreate extends Component
 {
+
+    // needed to do sail artisan vendor:publish --tag=laravel-pagination
+    // and
+    //   {{ $users->links('vendor.pagination.tailwind') }}
+    // in the blade file
+    // see also
+    //   https://livewire.laravel.com/docs/installation#publishing-the-configuration-file
+    //  but the vendor.pagination.tailwind is the path to the pagination
+    // file so reading round this would be good
+    use WithPagination;
+
+
     // never put anything public that you don't want to be exposed to the front end
     public $name;
     public $email;
@@ -23,11 +36,6 @@ class Usercreate extends Component
     {
         $this->count--;
     }
-
-    // public function handleButtonClick()
-    // {
-    //     dump('doo dar band');
-    // }
 
     public function createUser() {
 
@@ -71,7 +79,7 @@ class Usercreate extends Component
     public function render()
     {
         $title = 'Doo Dar Band';
-        $users = User::all();
+        $users = User::paginate(3);
 
         // define any secret data here rather than in public variables
         // if that is what you want to do
