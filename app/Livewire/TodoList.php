@@ -34,8 +34,8 @@ class TodoList extends Component
         $this->reset('name');
         // flash message
         session()->flash('success', 'Todo created successfully.');
-        // session()->flash('success', 'User Created Successfully.');
 
+        $this->resetPage();
 
     }
 
