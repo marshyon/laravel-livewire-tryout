@@ -37,6 +37,22 @@ class TodoList extends Component
 
     }
 
+    public function toggle($id) {
+        // TODO :: add a try catch block
+        // if the todo is not found due to being already
+        // deleted, then catch the exception and display
+        $todo = Todo::find($id);
+        $todo->completed = !$todo->completed;
+        $todo->save();
+    }
+
+    public function delete($id) {
+        // TODO :: add a try catch block
+        // if the todo is not found due to being already
+        // deleted, then catch the exception and display
+        Todo::find($id)->delete();
+    }
+
     public function render()
     {
         return view('livewire.todo-list',[
