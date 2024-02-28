@@ -20,3 +20,7 @@ Route::get('/', function () {
 Route::get('/usercreate', function () {
     return view('usercreate');
 });
+
+Route::get('/todos', function () {
+    return view('todo-list');
+});
