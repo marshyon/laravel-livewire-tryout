@@ -43,8 +43,6 @@ class Usercreate extends Component
 
     public function createUser()
     {
-
-
         $this->validate([
             'name' => 'required|min:2|max:50',
             'email' => 'required|email|unique:users',
@@ -53,7 +51,6 @@ class Usercreate extends Component
         ]);
 
         if ($this->image) {
-
             $imagePath = $this->image->store('images', 'public');
         } else {
             $imagePath = null;
