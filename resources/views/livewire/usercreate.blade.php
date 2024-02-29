@@ -60,10 +60,7 @@
                 class="block px-3 py-1 text-white bg-pink-500 rounded hover:bg-pink-700 disabled:opacity-50 disabled:cursor-not-allowed">Submit</button>
         </form>
 
-        @foreach ($users as $user)
-            <p class="text-gray-500">user => {{ $user->name }}</p>
-        @endforeach
 
-        {{ $users->links('vendor.pagination.tailwind') }}
+
     </div>
 </div>

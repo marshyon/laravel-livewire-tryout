@@ -2,4 +2,5 @@
 
 @section('content')
     @livewire('usercreate')
+    @livewire('user-list')
 @endsection

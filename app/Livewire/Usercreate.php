@@ -56,7 +56,7 @@ class Usercreate extends Component
             $imagePath = null;
         }
 
-        User::create([
+        $usr = User::create([
             'name' => $this->name,
             'email' => $this->email,
             'password' => $this->password,
@@ -73,20 +73,11 @@ class Usercreate extends Component
 
         // flash a message to the session
         session()->flash('success', 'User Created Successfully.');
+
+        // dispatch event to refresh the user list
+        $this->dispatch('user-created', $usr);
     }
 
-    // public function createRandomUser() {
-    //     // create a random string using faker of a username
-    //     $name = \Faker\Factory::create()->name;
-    //     // create a random email using faker
-    //     $email = \Faker\Factory::create()->email;
-    //     // create a new user using the User model
-    //     User::create([
-    //         'name' => $name,
-    //         'email' => $email,
-    //         'password' => 'password123'
-    //     ]);
-    // }
 
 
     public function render()
