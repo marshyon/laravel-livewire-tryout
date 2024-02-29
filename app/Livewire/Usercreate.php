@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Livewire;
+
 use App\Models\User;
 
 use Livewire\Component;
@@ -40,7 +41,8 @@ class Usercreate extends Component
         $this->count--;
     }
 
-    public function createUser() {
+    public function createUser()
+    {
 
 
         $this->validate([
@@ -50,7 +52,8 @@ class Usercreate extends Component
             'image' => 'nullable|image|max:1024'
         ]);
 
-        if($this->image) {
+        if ($this->image) {
+
             $imagePath = $this->image->store('images', 'public');
         } else {
             $imagePath = null;
@@ -73,7 +76,6 @@ class Usercreate extends Component
 
         // flash a message to the session
         session()->flash('success', 'User Created Successfully.');
-
     }
 
     // public function createRandomUser() {
@@ -99,12 +101,9 @@ class Usercreate extends Component
         // if that is what you want to do
         $some_secret_data = 'this is a secret';
 
-        return view('livewire.usercreate',[
+        return view('livewire.usercreate', [
             'title' => $title,
             'users' => $users
         ]);
-
-
     }
-
 }
