@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Livewire;
+
 use App\Models\User;
 
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
+use Livewire\WithoutUrlPagination;
 
 class Usercreate extends Component
 {
@@ -18,7 +20,7 @@ class Usercreate extends Component
     //   https://livewire.laravel.com/docs/installation#publishing-the-configuration-file
     //  but the vendor.pagination.tailwind is the path to the pagination
     // file so reading round this would be good
-    use WithPagination, WithFileUploads;
+    use WithPagination, WithoutUrlPagination, WithFileUploads;
 
 
     // never put anything public that you don't want to be exposed to the front end
@@ -39,9 +41,8 @@ class Usercreate extends Component
         $this->count--;
     }
 
-    public function createUser() {
-
-
+    public function createUser()
+    {
         $this->validate([
             'name' => 'required|min:2|max:50',
             'email' => 'required|email|unique:users',
@@ -49,13 +50,13 @@ class Usercreate extends Component
             'image' => 'nullable|image|max:1024'
         ]);
 
-        if($this->image) {
+        if ($this->image) {
             $imagePath = $this->image->store('images', 'public');
         } else {
             $imagePath = null;
         }
 
-        User::create([
+        $usr = User::create([
             'name' => $this->name,
             'email' => $this->email,
             'password' => $this->password,
@@ -73,20 +74,10 @@ class Usercreate extends Component
         // flash a message to the session
         session()->flash('success', 'User Created Successfully.');
 
+        // dispatch event to refresh the user list
+        $this->dispatch('user-created', $usr);
     }
 
-    // public function createRandomUser() {
-    //     // create a random string using faker of a username
-    //     $name = \Faker\Factory::create()->name;
-    //     // create a random email using faker
-    //     $email = \Faker\Factory::create()->email;
-    //     // create a new user using the User model
-    //     User::create([
-    //         'name' => $name,
-    //         'email' => $email,
-    //         'password' => 'password123'
-    //     ]);
-    // }
 
 
     public function render()
@@ -98,12 +89,9 @@ class Usercreate extends Component
         // if that is what you want to do
         $some_secret_data = 'this is a secret';
 
-        return view('livewire.usercreate',[
+        return view('livewire.usercreate', [
             'title' => $title,
             'users' => $users
         ]);
-
-
     }
-
 }
