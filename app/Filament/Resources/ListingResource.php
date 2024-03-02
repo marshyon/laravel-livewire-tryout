@@ -2,18 +2,18 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\AppointmentTypeResource\Pages;
-use App\Models\AppointmentType;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+use App\Filament\Resources\ListingResource\Pages as ListingPages;
 
-class AppointmentTypeResource extends Resource
+use Filament\Tables;
+use App\Models\Listing;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use ListingResource\Pages\EditListing;
+
+class ListingResource extends Resource
 {
-    protected static ?string $model = AppointmentType::class;
+    protected static ?string $model = Listing::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -21,9 +21,7 @@ class AppointmentTypeResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')
-                    ->label('Name')
-                    ->required(),
+                //
             ]);
     }
 
@@ -31,9 +29,7 @@ class AppointmentTypeResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')
-                    ->searchable()
-                    ->label('Name'),
+                //
             ])
             ->filters([
                 //
@@ -58,9 +54,13 @@ class AppointmentTypeResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListAppointmentTypes::route('/'),
-            'create' => Pages\CreateAppointmentType::route('/create'),
-            'edit' => Pages\EditAppointmentType::route('/{record}/edit'),
+
+
+            // app/Filament/Resources/ListingResource/Pages/ListListings.php
+
+            'index' => ListingPages\ListListings::route('/'),
+            'create' => ListingPages\CreateListing::route('/create'),
+            'edit' => ListingPages\EditListing::route('/{record}/edit'),
         ];
     }
 }
