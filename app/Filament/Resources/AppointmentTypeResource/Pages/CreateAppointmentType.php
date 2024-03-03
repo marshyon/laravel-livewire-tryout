@@ -9,4 +9,18 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateAppointmentType extends CreateRecord
 {
     protected static string $resource = AppointmentTypeResource::class;
+
+
+    protected function getFormActions(): array
+    {
+        return array_merge(
+            parent::getFormActions(),
+            [
+                Actions\Action::make('publish')
+                    ->action(function () {
+                        $this->form->fill();
+                    })
+            ],
+        );
+    }
 }
